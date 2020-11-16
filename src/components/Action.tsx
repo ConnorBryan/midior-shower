@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HStack, IconButton } from "@chakra-ui/react";
+import { Center, HStack, IconButton } from "@chakra-ui/react";
 import { AiOutlineFunction } from "react-icons/ai";
 import { GiAlienStare, GiMusicSpell, GiSpellBook } from "react-icons/gi";
 import { GrCatalog } from "react-icons/gr";
@@ -12,17 +12,22 @@ interface Props {
 
 export default function Action({ icon, isActive = false, onClick }: Props) {
   return (
-    <IconButton
-      aria-label="..."
-      bg="blue.700"
-      width="20vw"
-      height="12.5vh"
-      fontSize="40px"
-      icon={icon}
-      borderRadius={0}
-      isActive={isActive}
-      onClick={onClick}
-    />
+    <Center bg="blue.700" width="20vw" height="12.5vh" position="relative">
+      <IconButton
+        aria-label="..."
+        bg="blue.700"
+        width="100%"
+        height="100%"
+        fontSize="40px"
+        borderRadius={0}
+        icon={icon}
+        isActive={isActive}
+        onClick={onClick}
+        _focus={{
+          boxShadow: "none",
+        }}
+      />
+    </Center>
   );
 }
 
@@ -50,7 +55,11 @@ Action.Actions = ({ activeIndex, onSelectActionIndex }: GroupProps) => (
         key={index}
         icon={icon}
         isActive={activeIndex === index}
-        onClick={onSelectActionIndex}
+        onClick={() => {
+          if (activeIndex !== index) {
+            onSelectActionIndex(index);
+          }
+        }}
       />
     ))}
   </HStack>
