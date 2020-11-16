@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Center, ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { Action, Piece } from "./components";
+import { ActionGroup, Piece } from "./components";
 import space from "./space.jpg";
 import { GiAries } from "react-icons/gi";
 
@@ -10,23 +10,7 @@ const theme = extendTheme({
   },
 });
 
-enum Actions {
-  BattleLog,
-  EnemyLog,
-  Transmuse,
-  MotifLog,
-  FxLog,
-}
-
 export default function App() {
-  const [activeActionIndex, setActiveActionIndex] = React.useState(
-    Actions.Transmuse
-  );
-  const handleSelectActionIndex = React.useCallback(
-    (actionIndex: Actions) => setActiveActionIndex(actionIndex),
-    []
-  );
-
   return (
     <ChakraProvider theme={theme}>
       <Box bg={`url(${space})`}>
@@ -47,10 +31,7 @@ export default function App() {
           }}
         />
         <Center h="77.5vh" bg={space}></Center>
-        <Action.Actions
-          activeIndex={activeActionIndex}
-          onSelectActionIndex={handleSelectActionIndex}
-        />
+        <ActionGroup />
       </Box>
     </ChakraProvider>
   );

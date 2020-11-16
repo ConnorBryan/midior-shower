@@ -28,8 +28,8 @@ export default function Piece({ sign, tempo, credits }: Props) {
       spacing={0}
       align="center"
       justify="center"
-      borderWidth={2}
-      borderBottom="gray.400"
+      borderBottomWidth={2}
+      borderColor="gray.400"
       opacity={0.75}
     >
       <Center w="15vw" h="10vh" bg="blue.700" borderBottom="red.400">
