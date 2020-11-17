@@ -3,11 +3,12 @@ import onClickOutside from "react-onclickoutside";
 import { Box, SlideFade, CloseButton } from "@chakra-ui/react";
 
 interface Props {
+  children: React.ReactNode;
   isOpen: boolean;
   onClose(): void;
 }
 
-function ActionScreen({ isOpen, onClose }: Props) {
+function ActionScreen({ children, isOpen, onClose }: Props) {
   (ActionScreen as any).handleClickOutside = onClose;
 
   return (
@@ -35,7 +36,9 @@ function ActionScreen({ isOpen, onClose }: Props) {
           right="0.5rem"
           size="lg"
           color="gray.400"
+          zIndex={1}
         />
+        {children}
       </Box>
     </SlideFade>
   );

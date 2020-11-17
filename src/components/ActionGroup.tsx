@@ -5,12 +5,41 @@ import { GiAlienStare, GiMusicSpell, GiSpellBook } from "react-icons/gi";
 import { GrCatalog } from "react-icons/gr";
 import Action from "./Action";
 import ActionScreen from "./ActionScreen";
+import { TransmuseScreen } from "./screens";
 
 export default function ActionGroup() {
-  const transmuseIndex = 2;
+  const actions = [
+    {
+      id: "log",
+      icon: <GrCatalog />,
+      inner: <div>Log</div>,
+    },
+    {
+      id: "lore",
+      icon: <GiAlienStare />,
+      inner: <div>Lore</div>,
+    },
+    {
+      id: "transmuse",
+      icon: <GiMusicSpell />,
+      inner: <TransmuseScreen />,
+    },
+    {
+      id: "motifs",
+      icon: <GiSpellBook />,
+      inner: <div>Motifs</div>,
+    },
+    {
+      id: "fx",
+      icon: <AiOutlineFunction />,
+      inner: <div>FX</div>,
+    },
+  ];
   const [activeActionIndex, setActiveActionIndex] = React.useState(
-    transmuseIndex
+    // actions.findIndex((action) => action.id === "transmuse")
+    2
   );
+  const activeAction = actions[activeActionIndex];
   const handleCloseScreen = () => setActiveActionIndex(-1);
 
   return (
@@ -22,35 +51,21 @@ export default function ActionGroup() {
         borderColor="gray.400"
         opacity={0.75}
       >
-        {[
-          <GrCatalog />,
-          <GiAlienStare />,
-          <GiMusicSpell />,
-          <GiSpellBook />,
-          <AiOutlineFunction />,
-        ].map((icon, index) => (
+        {actions.map((action, index) => (
           <Action
             key={index}
-            icon={icon}
+            icon={action.icon}
             isActive={activeActionIndex === index}
             onClick={() => {
-              if (activeActionIndex === index) {
-                handleCloseScreen();
-              } else {
-                handleCloseScreen();
-
-                setTimeout(() => {
-                  setActiveActionIndex(index);
-                }, 100);
-              }
+              handleCloseScreen();
+              setActiveActionIndex(index);
             }}
           />
         ))}
       </HStack>
-      <ActionScreen
-        isOpen={activeActionIndex > -1}
-        onClose={handleCloseScreen}
-      />
+      <ActionScreen isOpen={activeActionIndex > -1} onClose={handleCloseScreen}>
+        {activeAction?.inner}
+      </ActionScreen>
     </>
   );
 }
